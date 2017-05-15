@@ -1,0 +1,31 @@
+{
+  "name": "tracker",
+  "version": "1.0.0",
+  "description": "tracker gateway server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mintmocha/mintmocha.git"
+  },
+  "author": "daegi jeong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mintmocha/mintmocha/issues"
+  },
+  "homepage": "https://github.com/mintmocha/mintmocha#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "errorhandler": "^1.5.0",
+    "express": "^4.15.2",
+    "express-error-handler": "^1.1.0",
+    "express-session": "^1.15.2",
+    "http": "0.0.0",
+    "mongodb": "^2.2.26",
+    "path": "^0.12.7",
+    "serve-static": "^1.12.2"
+  }
+}
