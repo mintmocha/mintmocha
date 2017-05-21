@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +9,9 @@
     <meta name="description" content="gps tracker">
     <meta name="author" content="daegi.jeong">
     <!--<link rel="icon" href="../../favicon.ico">-->
-    <title> <%= title %></title>
+    <title>
+        <%= title %>
+    </title>
     <link rel='stylesheet' href='/stylesheets/index.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <!-- Bootstrap core CSS -->
@@ -18,87 +21,119 @@
     <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="javascripts/bootstrap.js"></script>
     
+    <!-- note : font-awesome-->
+    <script src="https://use.fontawesome.com/b909540812.js"></script>
+
     <!--favicon -->
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <!--Google Map-->
     <style>
-      #map {
-        height: 100%;
-      }
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        /*html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }*/
+
     </style>
     <script>
-        var lat="127.089571";
-        var lot="37.534207";
-        
-        console.log("lat : "+lat);
-        console.log("lot : "+lot);
+        var lat = "127.089571";
+        var lot = "37.534207";
+
+        console.log("lat : " + lat);
+        console.log("lot : " + lot);
         //37.572145,126.977830
-          
+
     </script>
     <script type="text/javascript" src='javascripts/index_script.js'></script>
-  </head>
-  <body>
-      
+</head>
+
+<body>
+
     <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="/map">Map</a></li>
-            <li role="presentation"><a href="#">Log</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted"><b>GPS Tracker Dashboard</b></h3>
-      </div>
-
-      <div class="jumbotron">
-        <h2><b>You are here !</b></h2>
-          <div id="staticMapUpdatedTime">Last Refreshed : 2017-05-19 15:16:49</div>
-          <br>
-        <%
-          
-          %>
-        <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:You%7C37.572145,126.977830&key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI">
-        
-        <div id="btnStaticMapRefresh">
-            <button class="btn btn-info" href="#" role="button" onclick="javascript:refreshMap()">Refresh</button>
-        </div>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Device Status</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>GPS Status</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>GPS Mode</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="#">Home</a></li>
+                    <li role="presentation"><a href="/map">Map</a></li>
+                    <li role="presentation"><a href="#">Log</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted"><b>GPS Tracker</b></h3>
         </div>
 
-        <div class="col-lg-6">
-          <h4>Latitude</h4>
-          <p>127.089571</p>
-
-          <h4>Longitude</h4>
-          <p>37.534207</p>
-
-          <h4>Altitude</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        <div class="jumbotron">
+            <h2><b><i class="fa fa-compass" aria-hidden="true"></i> You are here !</b></h2>
+            <div id="staticMapUpdatedTime">Last Refreshed : 2017-05-19 15:16:49</div>
+            <br>
+            <div id="map"></div>
+               <!--changes static -> google 지도로 변경-->
+               <!--
+               <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:You%7C37.572145,126.977830&key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI">
+                -->
+                <div id="btnStaticMapRefresh">
+                    <button class="btn btn-info" href="#" role="button" onclick="javascript:refreshMap()"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
+                </div>
         </div>
-      </div>
 
-      <footer class="footer">
-        <p>Daegi Jeong</p>
-      </footer>
+        <script>
 
-    </div> <!-- /container -->
+            function initMap() {
+                var userPosition = {
+                    lat: 37.5341824,
+                    lng: 127.0897395
+
+                };
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 17,
+                    center: userPosition
+                });
+                var marker = new google.maps.Marker({
+                    position: userPosition,
+                    map: map
+                });
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI&callback=initMap" async defer>
+        </script>
+
+        <div class="row marketing">
+            <div class="col-lg-6">
+                <h4>Device Status</h4>
+                <p>Normal</p>
+
+                <h4>GPS Status</h4>
+                <p>Normal</p>
+
+                <h4>GPS Mode</h4>
+                <p>3D FIX</p>
+            </div>
+
+            <div class="col-lg-6">
+                <h4>Latitude</h4>
+                <p>127.089571</p>
+
+                <h4>Longitude</h4>
+                <p>37.534207</p>
+
+                <h4>Altitude</h4>
+                <p>192 M</p>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Daegi Jeong</p>
+        </footer>
+
+    </div>
+
+    <!-- /container -->
 </body>
+
 </html>

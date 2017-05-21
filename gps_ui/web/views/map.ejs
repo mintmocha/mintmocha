@@ -1,35 +1,81 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
+
+<head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="gps tracker">
+    <meta name="author" content="daegi.jeong">
+    <!--<link rel="icon" href="../../favicon.ico">-->
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- Bootstrap core CSS -->
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/jumbotron-narrow.css" rel="stylesheet">
+    <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="javascripts/bootstrap.js"></script>
+
+    <!--favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <!--Google Map-->
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+
     </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI&callback=initMap"
-    async defer></script>
-  </body>
+</head>
+
+<body>
+
+    <div class="container">
+        <!--상단 메뉴-->
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation"><a href="/">Home</a></li>
+                    <li role="presentation" class="active"><a href="/map">Map</a></li>
+                    <li role="presentation"><a href="#">Log</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted"><b>GPS Tracker</b></h3>
+        </div>
+
+        <div id="map"></div>
+        <script>
+
+            function initMap() {
+                var userPosition = {
+                    lat: 37.5341824,
+                    lng: 127.0897395
+
+                };
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: userPosition
+                });
+                var marker = new google.maps.Marker({
+                    position: userPosition,
+                    map: map
+                });
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI&callback=initMap" async defer>
+        </script>
+        <footer class="footer">
+            <p>Daegi Jeong</p>
+        </footer>
+    </div>
+    <!-- /container -->
+</body>
+
 </html>
