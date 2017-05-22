@@ -36,6 +36,19 @@
 
     </style>
     <script type="text/javascript" src='javascripts/index_script.js'></script>
+    <script>
+        var marker;
+        var map;
+        /*note: Index Document.Ready function*/
+        $(document).ready(function(){
+            /*todo:변수 값 수정 필요*/
+            var lat=37.5341824, lng=127.0897395;
+
+            //지도 초기화
+            initMap(lat,lng);
+
+        });
+    </script>
 </head>
 
 <body>
@@ -56,6 +69,7 @@
             <h2><b><i class="fa fa-compass" aria-hidden="true"></i> You are here !</b></h2>
             <div class="inner_list">
                 <ul>
+                   <!--todo: 초기화값으로 수정-->
                     <li id="userLocationDesc">Location : test</li>
                     <li id="mapUpdatedTime">Last Refreshed : 2017-05-19 15:16:49</li>
                 </ul>
@@ -67,24 +81,7 @@
             </div>
         </div>
 
-        <script>
-            function initMap() {
-                var userPosition = {
-                    lat: 37.5341824,
-                    lng: 127.0897395
-
-                };
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 17,
-                    center: userPosition
-                });
-                var marker = new google.maps.Marker({
-                    position: userPosition,
-                    map: map
-                });
-            }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI&callback=initMap" async defer>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI" async defer>
         </script>
 
         <div class="row marketing">
