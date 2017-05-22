@@ -20,7 +20,7 @@
     <link href="/stylesheets/jumbotron-narrow.css" rel="stylesheet">
     <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="javascripts/bootstrap.js"></script>
-    
+
     <!-- note : font-awesome-->
     <script src="https://use.fontawesome.com/b909540812.js"></script>
 
@@ -34,23 +34,7 @@
             width: 100%;
         }
 
-        /*html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }*/
-
     </style>
-    <script>
-        var lat = "127.089571";
-        var lot = "37.534207";
-
-        console.log("lat : " + lat);
-        console.log("lot : " + lot);
-        //37.572145,126.977830
-
-    </script>
     <script type="text/javascript" src='javascripts/index_script.js'></script>
 </head>
 
@@ -70,22 +54,20 @@
 
         <div class="jumbotron">
             <h2><b><i class="fa fa-compass" aria-hidden="true"></i> You are here !</b></h2>
-            <div id="userLocationDesc">Location : test</div>
-            <div id="mapUpdatedTime">Last Refreshed : 2017-05-19 15:16:49</div>
+            <div class="inner_list">
+                <ul>
+                    <li id="userLocationDesc">Location : test</li>
+                    <li id="mapUpdatedTime">Last Refreshed : 2017-05-19 15:16:49</li>
+                </ul>
+            </div>
 
-            <br>
             <div id="map"></div>
-               <!--changes static -> google 지도로 변경-->
-               <!--
-               <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:You%7C37.572145,126.977830&key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI">
-                -->
-                <div id="btnStaticMapRefresh">
-                    <button class="btn btn-info" href="#" role="button" onclick="javascript:refreshMap()"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
-                </div>
+            <div id="btnStaticMapRefresh">
+                <button class="btn btn-info" href="#" role="button" onclick="javascript:refreshMap()"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
+            </div>
         </div>
 
         <script>
-
             function initMap() {
                 var userPosition = {
                     lat: 37.5341824,
@@ -119,10 +101,10 @@
 
             <div class="col-lg-6">
                 <h4>Latitude</h4>
-                <p id="lat_val">127.089571</p>
+                <p id="lat_val">37.534207</p>
 
                 <h4>Longitude</h4>
-                <p id="lng_val">37.534207</p>
+                <p id="lng_val">127.089571</p>
 
                 <h4>Altitude</h4>
                 <p>192 M</p>
