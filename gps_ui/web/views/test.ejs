@@ -80,6 +80,25 @@
             
             var log = "Lat : "+ lat +", Lng : " + lng;
             
+            $.post({
+                type:"POST",
+                url:"http://localhost:3000/api/push",
+                contentType:"application/json; charset=UTF-8",
+                data: JSON.stringify({
+                    'lat': lat,
+                    'lng': lng,
+                    'name' : 'Daegi.Jeong'
+                }),
+                success: function(result){
+                    alert('전송이 완료되었습니다.');
+                    console.log(result);
+                },
+                error: function(e){
+                    alert('전송 실패 하였습니다.');
+                    console.log(e.responseText);
+                }
+            });
+
             $("#resultArea").text(log);
         }
     </script>
