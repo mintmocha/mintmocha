@@ -12,7 +12,6 @@
     <title>
         <%= title %>
     </title>
-    <link rel='stylesheet' href='/stylesheets/index.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <!-- Bootstrap core CSS -->
     <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
@@ -20,68 +19,68 @@
     <link href="/stylesheets/jumbotron-narrow.css" rel="stylesheet">
     <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="javascripts/bootstrap.js"></script>
-    
-    <!-- note : font-awesome-->
+
+    <!-- note: Font-awesome-->
     <script src="https://use.fontawesome.com/b909540812.js"></script>
-    
-    <!--favicon -->
+
+    <!--note:Favicon -->
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-    <!--Google Map-->
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-
-
-    </style>
+    
+    <!--note:User Script-->
+   
 </head>
 
 <body>
 
     <div class="container">
-        <!--상단 메뉴-->
+        <!--note:상단 메뉴-->
         <div class="header clearfix">
             <nav>
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation"><a href="/">Home</a></li>
-                    <li role="presentation" class="active"><a href="/map">Map</a></li>
+                    <li role="presentation"><a href="/map">Map</a></li>
                     <li role="presentation"><a href="#">Log</a></li>
+                    <li role="presentation" class="active"><a href="#">Test</a></li>
                 </ul>
             </nav>
             <h3 class="text-muted"><b>GPS Tracker</b></h3>
         </div>
+        <!--note:Jumbotron-->
         <div class="jumbotron">
-           <h2><b><i class="fa fa-suitcase" aria-hidden="true"></i> Tracking map</b></h2>
-            <div id="map"></div>
+            <h2><b><i class="fa fa-code" aria-hidden="true"></i> Test Page</b></h2>
         </div>
-        
-        <script>
-
-            function initMap() {
-                var userPosition = {
-                    lat: 37.5341824,
-                    lng: 127.0897395
-
-                };
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 15,
-                    center: userPosition
-                });
-                var marker = new google.maps.Marker({
-                    position: userPosition,
-                    map: map
-                });
-            }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI&callback=initMap" async defer>
-        </script>
+        <!--note:Body-->
+        <div class="row marketing">
+            <div class="col-lg-6">
+                <h4>Parameters</h4>
+                <div>
+                    위도 <input id="input_lat" type="text"/><br>
+                    경도 <input id="input_lng" type="text"/>
+                </div>
+                <br>
+                <button class="btn btn-info" onclick="javascript:callApi()">Send</button>
+            </div>
+            <div class="col-lg-6">
+                <h4>Result</h4>
+                <textarea id="resultArea" style="width:100%"></textarea>
+            </div>
+        </div>
         <footer class="footer">
             <p>Daegi Jeong</p>
         </footer>
     </div>
     <!-- /container -->
 </body>
-
+ <script>
+        function callApi(){
+            //console.log('api call function');
+            var lat = $('#input_lat').val(); console.log("lat: "+lat);
+            var lng = $('#input_lng').val(); console.log("lng: "+lng);
+            
+            var log = "Lat : "+ lat +", Lng : " + lng;
+            
+            $("#resultArea").text(log);
+        }
+    </script>
 </html>
