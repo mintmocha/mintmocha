@@ -10,7 +10,9 @@ router.get('/', function(req, res, next) {
 
 /*note:GPS 추가 API*/
 router.route('/push').post(function (req, res, next){
-    res.send('push');
-    consloe.log('api/push 호출됨');
+    //consloe.log('api/push 호출됨');
+    res.send('정상 등록');
+    
+    
 });
 module.exports = router;

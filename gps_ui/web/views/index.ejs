@@ -40,14 +40,8 @@
         var marker;
         var map;
         /*note: Index Document.Ready function*/
-        $(document).ready(function(){
-            /*todo:변수 값 수정 필요*/
-            var lat=37.5341824, lng=127.0897395;
-
-            //지도 초기화
-            initMap(lat,lng);
-
-        });
+        
+        
     </script>
 </head>
 
@@ -73,7 +67,7 @@
                 <ul>
                    <!--todo: 초기화값으로 수정-->
                     <li id="userLocationDesc">Location : test</li>
-                    <li id="mapUpdatedTime">Last Refreshed : 2017-05-19 15:16:49</li>
+                    <li id="mapUpdatedTime">Last Refreshed : <%=data[0].timestamp%></li>
                 </ul>
             </div>
 
@@ -89,24 +83,24 @@
         <div class="row marketing">
             <div class="col-lg-6">
                 <h4>Device Status</h4>
-                <p>Normal</p>
+                <p><%=data[0].status_device%></p>
 
                 <h4>GPS Status</h4>
-                <p>Normal</p>
+                <p><%=data[0].status_gps%></p>
 
                 <h4>GPS Mode</h4>
-                <p>3D FIX</p>
+                <p><%=data[0].gps_mode%></p>
             </div>
 
             <div class="col-lg-6">
                 <h4>Latitude</h4>
-                <p id="lat_val">37.534207</p>
+                <p id="lat_val"><%=data[0].lat%></p>
 
                 <h4>Longitude</h4>
-                <p id="lng_val">127.089571</p>
+                <p id="lng_val"><%=data[0].lng%></p>
 
                 <h4>Altitude</h4>
-                <p>192 M</p>
+                <p><%=data[0].alt%> M</p>
             </div>
         </div>
 

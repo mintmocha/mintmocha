@@ -27,8 +27,47 @@
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     
-    <!--note:User Script-->
+    <!--note:jquery-json RPC-->
+    <script src= 'javascripts/jquery.jsonrpc.js'></script>
    
+   <!--node:User Script-->
+   <script>
+        $(function(){
+            $.jsonRPC.setup({
+                endPoint: 'http://localhost:3001/api',
+                namespace:''
+            });
+            
+            $('#sendBtn').click(function(){
+                var lat = $('#input_lat').val(); console.log("lat: "+lat);
+                var lng = $('#input_lng').val(); console.log("lng: "+lng);
+                
+                var a = parseInt(lat);
+	            	var b = parseInt(lng);
+	            	
+	            	var method = 'push';
+	                $.jsonRPC.request(method, {
+	                	id: 1002,
+                        contentType:'application/x-www-form-urlencoded',
+	                    params: [a,b],
+	                    success: function(data) {
+	                        alert('정상 응답을 받았습니다.');
+	                        console.dir(data);
+	                        
+	                        console.log(data.result);
+	                    },
+	                    error: function(data) {
+	                    	alert('에러 응답을 받았습니다.');
+	                    	console.dir(data);
+	                    	
+	                        console.log(data.error.code + ', ' + data.error.message);
+	                    }
+	                });
+	                
+	                //println('[' + method + '] method로 요청을 보냈습니다.');
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -59,7 +98,9 @@
                     경도 <input id="input_lng" type="text"/>
                 </div>
                 <br>
-                <button class="btn btn-info" onclick="javascript:callApi()">Send</button>
+                <!--note:테스트용 주석처리-->
+                <!--<button class="btn btn-info" onclick="javascript:callApi()">Send</button>-->
+                <button class="btn btn-info" id="sendBtn">Send</button>
             </div>
             <div class="col-lg-6">
                 <h4>Result</h4>
@@ -73,14 +114,33 @@
     <!-- /container -->
 </body>
  <script>
-        function callApi(){
+        /*function callApi(){
+            var method='push';
             //console.log('api call function');
             var lat = $('#input_lat').val(); console.log("lat: "+lat);
             var lng = $('#input_lng').val(); console.log("lng: "+lng);
             
             var log = "Lat : "+ lat +", Lng : " + lng;
             
-            $.post({
+            $.jsonRPC.request(method,{
+                id : '1001',
+                data : { 'lat': lat, 'lng':lng},
+                params : [lat,lng],
+                success: function(data){
+                    alert('정상응답을 받았습니다.');
+                    console.dir(data);
+                    console.log(data,result);
+                },
+                error: function(data){
+
+                    alert('오류응답을 받았습니다.');
+                    console.dir(data);
+                    console.log(data.error);
+                }
+            });*/
+            
+            //note:simple post
+            /*$.post({
                 type:"POST",
                 url:"http://localhost:3000/api/push",
                 contentType:"application/json; charset=UTF-8",
@@ -90,8 +150,9 @@
                     'name' : 'Daegi.Jeong'
                 }),
                 success: function(result){
-                    alert('전송이 완료되었습니다.');
+                    console.log('전송이 완료되었습니다.');
                     console.log(result);
+                    $("#resultArea").text(result);
                 },
                 error: function(e){
                     alert('전송 실패 하였습니다.');
@@ -100,6 +161,6 @@
             });
 
             $("#resultArea").text(log);
-        }
+        }//*/
     </script>
 </html>

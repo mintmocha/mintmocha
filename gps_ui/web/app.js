@@ -1,18 +1,27 @@
-var express      = require('express');
-var path         = require('path');
+var express = require('express')
+  , http = require('http')
+  , path = require('path');
 var favicon      = require('serve-favicon');
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
-
+var config       = require('./config/config');
 // note:routes
 var index = require('./routes/index');
 var users = require('./routes/users');
 var map   = require('./routes/map');
-var api   = require('./routes/api');
 var test  = require('./routes/test');
-var jayson = require('jayson');
+
 var app   = express();
+
+/*note:json rpc 설정*/
+var jayson = require('jayson');
+var handler_loader  = require('./handler/handler_loader');
+var jsonrpc_api_path = config.jsonrpc_api_path || 'api';
+handler_loader.init(jayson, app, jsonrpc_api_path);
+console.log('- Enable JsonRpcPath ['+jsonrpc_api_path+']');
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,28 +30,42 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
+// body-parser를 이용해 application/x-www-form-urlencoded 파싱
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// body-parser를 이용해 application/json 파싱
+app.use(bodyParser.json())
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 //note:route사용 설정
 app.use('/', index);
 app.use('/users', users);
 app.use('/map', map);
-app.use('/api', api);
 app.use('/test', test);
 
 /*note:mysql 설정*/
 var mysql = require('mysql');
-var pool = mysql.createPool({
-    connectionLimit:10,
-    user:'root',
-    password:'qwer1234!',
-    database:'node',
-    debug:false,
-    port:3388
-});
+var connection = require('express-myconnection');
 
+app.use(
+    connection(mysql,{
+        host: 'localhost',
+        user: 'root',
+        //* 사무실
+        password: '1234',
+        port:'3306',
+        //*/
+        /* 집
+        password: 'qwer1234!',
+        port:'3388',
+        //*/
+        database: 'node',
+        debug: false
+    }, 'request')
+);
 /*note:GPS DB 추가*/
 /*var addGps = function( _lat, _lng, _user, callback){
     console.log('Add Gps function called');

@@ -1,3 +1,19 @@
+$(document).ready(function(){
+            /**/
+           
+            /*todo:변수 값 수정 필요*/
+            //var lat=37.5341824, lng=127.0897395;
+            var lat = $('#lat_val').text();
+            var lng = $('#lng_val').text();
+            
+            //지도 초기화
+            initMap(lat,lng);
+            
+            //GPS TO ADDRESS
+            geocodeLatLng(lat, lng);
+
+});
+
 //새로고침 버튼 클릭시.
 function refreshMap() {
 
@@ -6,13 +22,9 @@ function refreshMap() {
     /*fixme: API 구현후 읽어온 값으로 수정해야 함.*/
 
     /*todo : 다시 활성화*/
-    //var lat = $('#lat_val').text();
-    //var lng = $('#lng_val').text();
-    //
-
-    //37.513981, 126.903218 (영등포 타임스퀘어)
-    var lat = 37.513981;
-    var lng = 126.903218;
+    var lat = $('#lat_val').text();
+    var lng = $('#lng_val').text();
+    
     //사용자 위치 표시
     geocodeLatLng(lat, lng);
 
@@ -24,8 +36,8 @@ function refreshMap() {
     modifyMarker(lat, lng);
 }
 
-function getTimeStamp() {
-    var d = new Date();
+function getTimeStamp(_time) {
+    var d = new Date(_time);
     var s =
         leadingZeros(d.getFullYear(), 4) + '-' +
         leadingZeros(d.getMonth() + 1, 2) + '-' +
