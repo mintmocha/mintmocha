@@ -20,22 +20,41 @@
     <link href="/stylesheets/jumbotron-narrow.css" rel="stylesheet">
     <script type="text/javascript" src="javascripts/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="javascripts/bootstrap.js"></script>
-    
+
     <!-- note : font-awesome-->
     <script src="https://use.fontawesome.com/b909540812.js"></script>
-    
+    <script type="text/javascript" src="javascripts/map_script.js"></script>
+
     <!--favicon -->
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <!--Google Map-->
+ 
     <style>
         #map {
             height: 400px;
             width: 100%;
         }
-
-
     </style>
+    <%
+        function dFormat(timestamp) {
+    var date = new Date(timestamp);
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDay();
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+
+    var retVal = year + "-" + (month < 10 ? "0" + month : month) + "-"
+        + (day < 10 ? "0" + day : day) + " "
+        + (hour < 10 ? "0" + hour : hour) + ":"
+        + (min < 10 ? "0" + min : min) + ":"
+        +  (sec < 10 ? "0" + sec : sec);
+    return retVal
+
+}
+    %>
 </head>
 
 <body>
@@ -55,28 +74,49 @@
             <h3 class="text-muted"><b>GPS Tracker</b></h3>
         </div>
         <div class="jumbotron">
-           <h2><b><i class="fa fa-suitcase" aria-hidden="true"></i> Tracking map</b></h2>
+            <h2><b><i class="fa fa-suitcase" aria-hidden="true"></i> Tracking map</b></h2>
             <div id="map"></div>
         </div>
-        
-        <script>
+        <div>
+            <table class="table table-hover table-sm">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>#</th>
+                        <th>time</th>
+                        <th>Device Status</th>
+                        <th>GPS Status</th>
+                        <th>Mode</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                    </tr>
+                </thead>
 
-            function initMap() {
-                var userPosition = {
-                    lat: 37.5341824,
-                    lng: 127.0897395
-
-                };
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 15,
-                    center: userPosition
-                });
-                var marker = new google.maps.Marker({
-                    position: userPosition,
-                    map: map
-                });
-            }
-        </script>
+            
+                <tbody>
+                <%
+                for(var i=0; i < data.length; i++){
+                    //var idx = data[i].idx;
+                    var time = dFormat(data[i].timestamp);
+                    var status_device = data[i].status_device;
+                    var status_gps = data[i].status_gps;
+                    var gps_mode = data[i].gps_mode;
+                    var lat = data[i].lat;
+                    var lng = data[i].lng;
+                %>
+                    <tr>
+                        <!--<td><%= //idx %></td>-->
+                        <td><%= i+1 %></td>
+                        <td><%= time %></td>
+                        <td><%= status_device %></td>
+                        <td><%= status_gps %></td>
+                        <td><%= gps_mode %></td>
+                        <td><%= lat %></td>
+                        <td><%= lng %></td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI1Y398iX5bI_2lMFJ_d6WEex0vpwDNgI&callback=initMap" async defer>
         </script>
         <footer class="footer">

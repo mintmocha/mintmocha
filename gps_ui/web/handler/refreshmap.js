@@ -1,7 +1,8 @@
 /*note:gps 등록*/
-var push = function(params, callback) {
-	console.log('JSON-RPC push 호출됨.');
+var refreshmap = function(params, callback) {
+	console.log('JSON-RPC refreshmap 호출됨.');
 	console.dir(params);
+    callback(null, params);
 	
 	// 파라미터 체크
 /*
@@ -18,4 +19,4 @@ var push = function(params, callback) {
 };
 
 
-module.exports = push;
+module.exports = refreshmap;

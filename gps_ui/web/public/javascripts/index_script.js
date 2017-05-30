@@ -1,27 +1,62 @@
 $(document).ready(function(){
-            /**/
-           
-            /*todo:변수 값 수정 필요*/
-            //var lat=37.5341824, lng=127.0897395;
-            var lat = $('#lat_val').text();
-            var lng = $('#lng_val').text();
-            
-            //지도 초기화
-            initMap(lat,lng);
-            
-            //GPS TO ADDRESS
-            geocodeLatLng(lat, lng);
+    //var lat=37.5341824, lng=127.0897395;
+    var lat = $('#lat_val').text();
+    var lng = $('#lng_val').text();
+
+    //지도 초기화
+    initMap(lat,lng);
+
+    //GPS TO ADDRESS
+    geocodeLatLng(lat, lng);
+    
+    //*
+    $.jsonRPC.setup({
+        endPoint : 'http://localhost:3001/api',
+        namespace : ''
+    });
+    //*/
 
 });
 
 //새로고침 버튼 클릭시.
 function refreshMap() {
-
-    /*todo: 사용자 위치 읽어오는 api 호출*/
-    /*todo: 새 사용자 위치 지도에 marker 표시*/
-    /*fixme: API 구현후 읽어온 값으로 수정해야 함.*/
-
-    /*todo : 다시 활성화*/
+/*    
+    $.ajax({
+        method:'POST',
+        type:'application/json',
+        url:'/api/refreshmap',
+        data:{
+            userid:'1',
+            contents:'test입니다.'
+        },
+        success: function(results){
+            console.log(results);
+        },
+        error: function(e){
+            alert('정보를 가져올 수 없습니다.');
+            console.log(e.responseText);
+        } 
+        
+    });
+    //*/
+    
+//*
+    $.jsonRPC.request('refreshmap',{
+        id:1001,
+        params:["rpc test 하나둘셋"],
+        success:function(data){
+            println('정상응답');
+            console.dir(data);
+            println(data.result);
+        },
+        error: function(data){
+            println('오류 응답');
+            console.dir(data);
+            println(data.error.message);
+        }
+    });
+//*/
+    /*todo:위치 확인 api 호출*/
     var lat = $('#lat_val').text();
     var lng = $('#lng_val').text();
     
@@ -29,6 +64,7 @@ function refreshMap() {
     geocodeLatLng(lat, lng);
 
     //새로고침(업데이트) 시각 표시
+    /*todo: 시간 연동*/
     $('#mapUpdatedTime').empty();
     $('#mapUpdatedTime').append("Last Refreshed : " + getTimeStamp());
 
@@ -79,7 +115,7 @@ function geocodeLatLng(_lat, _lng) {
 
         },
         error: function (e) {
-            _usrlocation = e.responseText;
+            var usrlocation = '주소를 확인할 수 없습니다.';
             $('#userLocationDesc').empty();
             $('#userLocationDesc').append("Location : " + usrlocation);
 

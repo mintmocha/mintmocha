@@ -1,3 +1,10 @@
+
+/*
+ * 핸들러 모듈을 로딩하여 설정
+ * 
+ * 핸들러 모듈 파일에 대한 정보는 handler_info.js에 기록함
+ */
+
 var handler_loader = {};
 
 var handler_info = require('./handler_info');
@@ -43,7 +50,7 @@ function initHandlers(jayson, app, api_path) {
 	
 	app.post(api_path, function(req, res, next) {
 	    console.log('패스 [' + api_path + ']에서 JSON-RPC 호출됨.');
-		console.log(req.body);
+		
 	    var options = {};
 	    
 	    // Content-Type이 application/json이 아니면, 415 unsupported media type error
@@ -54,12 +61,10 @@ function initHandlers(jayson, app, api_path) {
 		};
 
 	    // body 부분의 데이터가 없는 경우, 500 server error
-	    //*
-        if(!req.body || typeof(req.body) !== 'object') {
+	    if(!req.body || typeof(req.body) !== 'object') {
 	    	console.log('요청 body가 비정상임.');
 	    	return error(400, 'Request body must be parsed');
 	    }
-        //*/
 
 	    // RPC 함수 호출
 	    console.log('RPC 함수를 호출합니다.');

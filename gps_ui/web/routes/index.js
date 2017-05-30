@@ -16,7 +16,7 @@ var pool      =    mysql.createPool({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    
+    /*note:DB 조회*/
     pool.getConnection(function(err, connection){
         var sqlForGPS = "select * from gps where useridx='1' order by timestamp desc limit 1";
         connection.query(sqlForGPS, function (err, rows){
