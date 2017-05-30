@@ -17,7 +17,7 @@ USE `node`;
 
 -- 테이블 node.gps 구조 내보내기
 CREATE TABLE IF NOT EXISTS `gps` (
-  `idx` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `useridx` int(10) unsigned NOT NULL,
   `lat` varchar(10) DEFAULT '-',
   `lng` varchar(10) DEFAULT '-',
@@ -29,13 +29,14 @@ CREATE TABLE IF NOT EXISTS `gps` (
   PRIMARY KEY (`idx`),
   KEY `FK_gps_user` (`useridx`),
   CONSTRAINT `FK_gps_user` FOREIGN KEY (`useridx`) REFERENCES `user` (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 node.gps:~1 rows (대략적) 내보내기
 DELETE FROM `gps`;
 /*!40000 ALTER TABLE `gps` DISABLE KEYS */;
 INSERT INTO `gps` (`idx`, `useridx`, `lat`, `lng`, `alt`, `status_device`, `status_gps`, `gps_mode`, `timestamp`) VALUES
-	(0000000001, 1, '37.534206', '127.089571', NULL, NULL, NULL, NULL, '2017-05-29 16:21:06');
+	(1, 1, '37.534206', '127.089571', '-', '-', '-', '-', '2017-05-29 16:21:06'),
+	(2, 1, '37.274491', '127.028772', '100', 'unkown', 'unkown', '3D FIX', '2017-05-29 18:20:27');
 /*!40000 ALTER TABLE `gps` ENABLE KEYS */;
 
 
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 node.user:~1 rows (대략적) 내보내기
+-- 테이블 데이터 node.user:~0 rows (대략적) 내보내기
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`idx`, `name`) VALUES
