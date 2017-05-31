@@ -14,17 +14,6 @@ var test  = require('./routes/test');
 
 var app   = express();
 
-/*note:json rpc 설정*/
-//*
-var jayson = require('jayson');
-var handler_loader  = require('./handler/handler_loader');
-var jsonrpc_api_path = config.jsonrpc_api_path || '/api';
-handler_loader.init(jayson, app, jsonrpc_api_path);
-console.log('- Enable JsonRpcPath ['+jsonrpc_api_path+']');
-//*/
-
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -49,15 +38,15 @@ app.use('/map', map);
 app.use('/test', test);
 
 
-/*note: 맵 새로고침 api*/
-/*app.post('/api/refreshmap', function(req, res){
-    console.log('refreshmap api called');
-    var userid = request.body.userid;
-    var contents = request.body.contents;
-    
-    console.log("user id : " + userid);
-    console.log("contents: " + contents);
-});*/
+/*note:json rpc 설정*/
+//*
+var jayson = require('jayson');
+var handler_loader  = require('./handler/handler_loader');
+var jsonrpc_api_path = config.jsonrpc_api_path || '/api';
+handler_loader.init(jayson, app, jsonrpc_api_path);
+console.log('- Enable JsonRpcPath ['+jsonrpc_api_path+']');
+//*/
+
 /*note:catch 404 and forward to error handler*/
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

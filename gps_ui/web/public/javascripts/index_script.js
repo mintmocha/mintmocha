@@ -20,39 +20,18 @@ $(document).ready(function(){
 
 //새로고침 버튼 클릭시.
 function refreshMap() {
-/*    
-    $.ajax({
-        method:'POST',
-        type:'application/json',
-        url:'/api/refreshmap',
-        data:{
-            userid:'1',
-            contents:'test입니다.'
-        },
-        success: function(results){
-            console.log(results);
-        },
-        error: function(e){
-            alert('정보를 가져올 수 없습니다.');
-            console.log(e.responseText);
-        } 
-        
-    });
-    //*/
-    
-//*
     $.jsonRPC.request('refreshmap',{
         id:1001,
-        params:["rpc test 하나둘셋"],
+        params:["id:test"],
         success:function(data){
-            println('정상응답');
+            console.log('정상응답');
             console.dir(data);
-            println(data.result);
+            console.log(data.result);
         },
         error: function(data){
-            println('오류 응답');
+            console.log('오류 응답');
             console.dir(data);
-            println(data.error.message);
+            console.log(data.error.message);
         }
     });
 //*/
