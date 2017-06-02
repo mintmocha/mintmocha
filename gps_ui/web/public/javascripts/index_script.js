@@ -1,54 +1,87 @@
-$(document).ready(function(){
+$(document).ready(function () {
     //var lat=37.5341824, lng=127.0897395;
     var lat = $('#lat_val').text();
     var lng = $('#lng_val').text();
 
     //지도 초기화
-    initMap(lat,lng);
+    initMap(lat, lng);
 
     //GPS TO ADDRESS
     geocodeLatLng(lat, lng);
-    
+
     //*
     $.jsonRPC.setup({
-        endPoint : 'http://localhost:3001/api',
-        namespace : ''
+        endPoint: 'http://localhost:3001/api',
+        namespace: ''
     });
     //*/
 
 });
 
-//새로고침 버튼 클릭시.
+//맵 새로고침 성공 콜백함수
+function refreshSuccess(data) {
+    if (Array.isArray(data.result)) {
+        if (data.result.length != 1) {
+            console.log('데이터 사이즈가 맞지 않습니다.(result size : ' + data.result.length + ')');
+        } else {
+            var lat = data.result[0].lat;
+            var lng = data.result[0].lng;
+            var alt = data.result[0].alt;
+            var status_device = data.result[0].status_device;
+            var status_gps = data.result[0].st
+            var gps_mode = data.result[0].gps_mode;
+            var timestamp = data.result[0].timestamp;
+
+            console.log('===== [Refresh API 호출 결과] =====');
+            console.log('lat :' + lat);
+            console.log('lng :' + lng);
+            console.log('alt :' + alt);
+            console.log('status_device :' + status_device);
+            console.log('status_gps :' + status_gps);
+            console.log('gps_mode :' + gps_mode);
+            console.log('timestamp :' + timestamp);
+            console.log('=================================');
+
+            //테이블 값 변경
+            $('#dStatus_val').text(status_device);
+            $('#gStatus_val').text(status_gps);
+            $('#gMod_val').text(gps_mode);
+            $('#lat_val').text(lat);
+            $('#lng_val').text(lng);
+            $('#alt_val').text(alt);
+
+            //업데이트 시간 변경
+            $('#mapUpdatedTime').empty();
+            $('#mapUpdatedTime').append("Last Updated : " + getTimeStamp(timestamp));
+
+            //사용자 위치 표시
+            geocodeLatLng(lat, lng);
+
+            //마커 이동
+            modifyMarker(lat, lng);
+
+        }
+    } else {
+        console.log('배열 아님')
+    };
+}
+
+//맵 새로고침 버튼 클릭시 호출
 function refreshMap() {
-    $.jsonRPC.request('refreshmap',{
-        id:1001,
-        params:["id:test"],
-        success:function(data){
-            console.log('정상응답');
-            console.dir(data);
-            console.log(data.result);
+    $.jsonRPC.request('refreshmap', {
+        id: 1001,
+        params: ["id:test"],
+        success: function (data) {
+            console.log('정상 응답');
+            refreshSuccess(data);
         },
-        error: function(data){
+        error: function (data) {
             console.log('오류 응답');
             console.dir(data);
             console.log(data.error.message);
         }
     });
-//*/
-    /*todo:위치 확인 api 호출*/
-    var lat = $('#lat_val').text();
-    var lng = $('#lng_val').text();
-    
-    //사용자 위치 표시
-    geocodeLatLng(lat, lng);
 
-    //새로고침(업데이트) 시각 표시
-    /*todo: 시간 연동*/
-    $('#mapUpdatedTime').empty();
-    $('#mapUpdatedTime').append("Last Refreshed : " + getTimeStamp());
-
-    //마커 이동
-    modifyMarker(lat, lng);
 }
 
 function getTimeStamp(_time) {
@@ -130,20 +163,21 @@ function initMap(_lat, _lng) {
     });
 
     //마커 설정
-        marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
         position: userPosition,
         map: map
     });
 }
 
 /*note:marker 삭제 : 미사용*/
-function removeMarker(){
+function removeMarker() {
     marker.setMap(null);
-    marker=null;
+    marker = null;
 }
 
 //마커 위치 수정 및 지도 이동
-function modifyMarker(_newlat,_newlng){
+function modifyMarker(_newlat, _newlng) {
+    console.log('[modify marker]');
     map.panTo(new google.maps.LatLng(_newlat, _newlng));
     marker.setPosition(new google.maps.LatLng(_newlat, _newlng));
 }

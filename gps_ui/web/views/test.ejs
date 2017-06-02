@@ -48,8 +48,11 @@
 	            	var method = 'push';
 	                $.jsonRPC.request(method, {
 	                	id: 1002,
-                        contentType:'application/x-www-form-urlencoded',
-	                    params: [a,b],
+                        contentType:'application/json',
+	                    params: {
+                            lat:lat,
+                            lng:lng
+                        },
 	                    success: function(data) {
 	                        alert('정상 응답을 받았습니다.');
 	                        console.dir(data);

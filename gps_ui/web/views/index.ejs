@@ -91,7 +91,7 @@
 
                     <!--todo: 초기화값으로 수정-->
                     <li id="userLocationDesc"></li>
-                    <li id="mapUpdatedTime">Last Refreshed :
+                    <li id="mapUpdatedTime">Last Updated :
                         <%= getTimeStamp(data[0].timestamp)%>
                     </li>
                 </ul>
@@ -109,17 +109,17 @@
         <div class="row marketing">
             <div class="col-lg-6">
                 <h4>Device Status</h4>
-                <p>
+                <p id="dStatus_val">
                     <%=data[0].status_device%>
                 </p>
 
                 <h4>GPS Status</h4>
-                <p>
+                <p id="gStatus_val">
                     <%=data[0].status_gps%>
                 </p>
 
                 <h4>GPS Mode</h4>
-                <p>
+                <p id="gMod_val">
                     <%=data[0].gps_mode%>
                 </p>
             </div>
@@ -136,7 +136,7 @@
                 </p>
 
                 <h4>Altitude</h4>
-                <p>
+                <p id="alt_val">
                     <%=data[0].alt%> M</p>
             </div>
         </div>
