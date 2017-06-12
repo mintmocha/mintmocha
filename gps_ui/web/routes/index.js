@@ -2,8 +2,16 @@ var express = require('express');
 var router = express.Router();
 
 /*note:mysql 설정*/
+/*
+var db_con = require('../database/db_con');
+var db = db_con.init();
+db.test_open(db_con);
+
+
+*/
+/*note:mysql 설정*/
 var mysql = require('mysql');
-var pool      =    mysql.createPool({
+var db      =    mysql.createPool({
     connectionLimit : 100, //important
     host     : 'localhost',
     user     : 'root',
@@ -13,13 +21,12 @@ var pool      =    mysql.createPool({
 });
 
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
     /*note:DB 조회*/
-    pool.getConnection(function(err, connection){
+    db.getConnection(function(err, connection){
         var sqlForGPS = "select * from gps where useridx='1' order by timestamp desc limit 1";
-        connection.query(sqlForGPS, function (err, rows){
+        db.query(sqlForGPS, function (err, rows){
            if(err) {
                console.log('database 질의 오류');
            }

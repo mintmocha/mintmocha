@@ -17,7 +17,7 @@ var pool      =    mysql.createPool({
 router.get('/', function(req, res, next) {
     //res.render('map', { title: 'GPS Tracker - map' });
     pool.getConnection(function(err, connection){
-        var sqlForGPS = "select * from gps where useridx='1' order by timestamp desc";
+        var sqlForGPS = "select * from gps where useridx='1' order by timestamp desc limit 10";
         connection.query(sqlForGPS, function (err, rows){
            if(err) {
                console.log('database 질의 오류');

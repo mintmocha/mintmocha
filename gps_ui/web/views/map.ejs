@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!--note:최근 10개의 gps 정보를 가져와 지도에 표시-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,25 +36,32 @@
             width: 100%;
         }
     </style>
+    <script>
     <%
-        function dFormat(timestamp) {
-    var date = new Date(timestamp);
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDay();
-    var hour = date.getHours();
-    var min = date.getMinutes();
-    var sec = date.getSeconds();
+        function lz(num){
+            var ret='0';
+            if(num<10) {
+                ret += num;
+            }else{
+                ret = num;
+            }
+            return ret;
+        }
 
-    var retVal = year + "-" + (month < 10 ? "0" + month : month) + "-"
-        + (day < 10 ? "0" + day : day) + " "
-        + (hour < 10 ? "0" + hour : hour) + ":"
-        + (min < 10 ? "0" + min : min) + ":"
-        +  (sec < 10 ? "0" + sec : sec);
-    return retVal
-
-}
+        function dFormat(_time){
+            var d = new Date(_time);
+            var year = d.getFullYear();
+            var month = (d.getMonth()+1);
+            var date = d.getDate();
+            var hour = d.getHours();
+            var min = d.getMinutes();
+            var sec = d.getSeconds();
+            var result = year+'-'+lz(month)+'-'+lz(date)+' '+lz(hour)+':'+lz(min)+':'+lz(sec);
+            console.log('table draw');
+            return result;
+        }
     %>
+    </script>
 </head>
 
 <body>
@@ -75,13 +82,14 @@
         </div>
         <div class="jumbotron">
             <h2><b><i class="fa fa-suitcase" aria-hidden="true"></i> Tracking map</b></h2>
+            <p style="font-size:10pt">최근 10개의 위치를 가져와 지도에 표시 합니다.</p>
             <div id="map"></div>
         </div>
         <div>
-            <table class="table table-hover table-sm">
+            <table id="table" class="table table-hover table-sm">
                 <thead class="thead-inverse">
                     <tr>
-                        <th>#</th>
+                        <th >#</th>
                         <th>time</th>
                         <th>Device Status</th>
                         <th>GPS Status</th>
@@ -92,7 +100,7 @@
                 </thead>
 
             
-                <tbody>
+                <tbody id="tbody">
                 <%
                 for(var i=0; i < data.length; i++){
                     //var idx = data[i].idx;
@@ -105,13 +113,13 @@
                 %>
                     <tr>
                         <!--<td><%= //idx %></td>-->
-                        <td><%= i+1 %></td>
+                        <td><%= data.length - i %></td>
                         <td><%= time %></td>
                         <td><%= status_device %></td>
                         <td><%= status_gps %></td>
                         <td><%= gps_mode %></td>
-                        <td><%= lat %></td>
-                        <td><%= lng %></td>
+                        <td id='lat_<%=i%>'><%= lat %></td>
+                        <td id='lng_<%=i%>'><%= lng %></td>
                     </tr>
                 <% } %>
                 </tbody>

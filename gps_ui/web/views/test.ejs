@@ -50,20 +50,25 @@
 	                	id: 1002,
                         contentType:'application/json',
 	                    params: {
+                            useridx:1,
                             lat:lat,
-                            lng:lng
+                            lng:lng,
+                            alt:'-',
+                            status_device:'-',
+                            status_gps:'-',
+                            gps_mode:'3D FIX'
                         },
 	                    success: function(data) {
-	                        alert('정상 응답을 받았습니다.');
-	                        console.dir(data);
-	                        
-	                        console.log(data.result);
+	                        //alert('정상 응답을 받았습니다.');
+	                        /*console.dir(data);
+	                        console.log(data.result);*/
+                            $('#resultArea').text('GPS 등록 완료');
 	                    },
 	                    error: function(data) {
-	                    	alert('에러 응답을 받았습니다.');
-	                    	console.dir(data);
-	                    	
-	                        console.log(data.error.code + ', ' + data.error.message);
+	                    	//alert('에러 응답을 받았습니다.');
+	                    	//console.dir(data);
+	                        //console.log(data.error.code + ', ' + data.error.message);
+                            $('#resultArea').text(data.error.code + ', ' + data.error.message);
 	                    }
 	                });
 	                
