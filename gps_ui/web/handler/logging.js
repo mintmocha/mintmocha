@@ -10,13 +10,13 @@ var pool = mysql.createPool({
 });
 
 /*note:gps 등록*/
-var push = function(params, callback) {
-	console.log('JSON-RPC push 호출됨.');
+var logging = function(params, callback) {
+	console.log('JSON-RPC logging 호출됨.');
 	console.dir(params);
     console.log('params.useridx : '+params.useridx);
     console.log('get mysql connection');
     pool.getConnection(function(err, connection){
-        var queryStr = 'insert into node.gps(`useridx`,`lat`, `lng`, `alt`, `status_device`, `status_gps`, `gps_mode`) values (?,?,?,?,?,?,?)';
+        var queryStr = 'insert into node.log(`useridx`,`title`, `log`) values (?,?,?)';
         var error, result;
         connection.query(queryStr, params, function(err, rows){
            if(err) {
@@ -27,7 +27,7 @@ var push = function(params, callback) {
                console.log('database 질의 오류');
                console.log(err);
            } else {
-                console.log('[GPS 추가 완료]');
+                console.log('[LOG 추가 완료]');
                 //console.log(rows);
                 //result = JSON.stringify(rows);
                 result = rows;
@@ -44,12 +44,7 @@ var push = function(params, callback) {
             callback(error, result);
         });
     });
-
-
-
-	//console.log(params);
-	//callback(null, "good");
 };
 
 
-module.exports = push;
+module.exports = logging;

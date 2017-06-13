@@ -11,7 +11,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var map   = require('./routes/map');
 var test  = require('./routes/test');
-
+var log  = require('./routes/log');
 var app   = express();
 
 // view engine setup
@@ -36,7 +36,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/map', map);
 app.use('/test', test);
-
+app.use('/log', log);
 
 /*note:json rpc 설정*/
 //*

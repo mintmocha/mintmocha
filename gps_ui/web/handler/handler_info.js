@@ -1,5 +1,6 @@
 var handler_info = [
     {file : './push', method: 'push'},
+    {file : './logging', method: 'logging'},
     {file : './refreshmap', method: 'refreshmap'}
         
     

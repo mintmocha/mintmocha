@@ -87,7 +87,7 @@
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation"><a href="/">Home</a></li>
                     <li role="presentation"><a href="/map">Map</a></li>
-                    <li role="presentation"><a href="#">Log</a></li>
+                    <li role="presentation"><a href="/log">Log</a></li>
                     <li role="presentation" class="active"><a href="#">Test</a></li>
                 </ul>
             </nav>
@@ -96,6 +96,7 @@
         <!--note:Jumbotron-->
         <div class="jumbotron">
             <h2><b><i class="fa fa-code" aria-hidden="true"></i> Test Page</b></h2>
+            <li>GPS 위치를 추가 할 수 있는 테스트 페이지 입니다.
         </div>
         <!--note:Body-->
         <div class="row marketing">
@@ -121,54 +122,4 @@
     </div>
     <!-- /container -->
 </body>
- <script>
-        /*function callApi(){
-            var method='push';
-            //console.log('api call function');
-            var lat = $('#input_lat').val(); console.log("lat: "+lat);
-            var lng = $('#input_lng').val(); console.log("lng: "+lng);
-            
-            var log = "Lat : "+ lat +", Lng : " + lng;
-            
-            $.jsonRPC.request(method,{
-                id : '1001',
-                data : { 'lat': lat, 'lng':lng},
-                params : [lat,lng],
-                success: function(data){
-                    alert('정상응답을 받았습니다.');
-                    console.dir(data);
-                    console.log(data,result);
-                },
-                error: function(data){
-
-                    alert('오류응답을 받았습니다.');
-                    console.dir(data);
-                    console.log(data.error);
-                }
-            });*/
-            
-            //note:simple post
-            /*$.post({
-                type:"POST",
-                url:"http://localhost:3000/api/push",
-                contentType:"application/json; charset=UTF-8",
-                data: JSON.stringify({
-                    'lat': lat,
-                    'lng': lng,
-                    'name' : 'Daegi.Jeong'
-                }),
-                success: function(result){
-                    console.log('전송이 완료되었습니다.');
-                    console.log(result);
-                    $("#resultArea").text(result);
-                },
-                error: function(e){
-                    alert('전송 실패 하였습니다.');
-                    console.log(e.responseText);
-                }
-            });
-
-            $("#resultArea").text(log);
-        }//*/
-    </script>
 </html>
