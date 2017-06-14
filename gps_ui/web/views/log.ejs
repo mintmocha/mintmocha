@@ -34,6 +34,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 
+    <!--toggle button-->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script>
         <%
         function lz(num){
@@ -55,7 +58,7 @@
             var min = d.getMinutes();
             var sec = d.getSeconds();
             var result = year+'-'+lz(month)+'-'+lz(date)+' '+lz(hour)+':'+lz(min)+':'+lz(sec);
-            console.log('table draw');
+
             return result;
         }
     %>
@@ -81,9 +84,16 @@
         <div class="jumbotron">
             <h2><b><i class="fa fa-history" aria-hidden="true"></i> Log page</b></h2>
             <p style="font-size:10pt"><li>Device 관련 로그가 저장됩니다.</p>
-            <div id="map"></div>
+
         </div>
         <div>
+            <div>
+                <div id="autorefreshdiv">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+                Auto Refresh(Every 5Sec)
+                <input id="refreshSwitch" type="checkbox" checked data-toggle="toggle" data-size="mini" data-onstyle="info"></div>
+            </div>
+            <br>
             <table id="table" class="table table-hover table-sm">
                 <thead class="thead-inverse">
                     <tr>
