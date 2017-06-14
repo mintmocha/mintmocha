@@ -34,14 +34,17 @@ def pushGPS(_url, _lat, _lng, _alt, _status_device, _status_gps, _gps_mode):
 	callAPI(_url, "push", "1002", params)
 
 def getGpsStatus(_mode):
-	if _mode == 1:
-		return "No Valid Data"
-	else _mode == 2:
-		return "2D FIX"
-	else _mode == 3:
-		return "3D FIX"
-	else
-		return "Undefined Status"
+    print(type(_mode))
+    if _mode ==1 :
+      mode = "Unvalid Data"
+    elif _mode == 2:
+      mode = "2D Fix"
+    elif _mode == 3:
+      mode = "3D Fix"
+    else :
+      mode = "Undefined Status"
+    return mode
+
 
 class GpsPoller(threading.Thread):
   def __init__(self):
@@ -88,9 +91,12 @@ if __name__ == '__main__':
 #      print 'sats        ' , gpsd.satellites
 
       #check gps status.. if gps is not detected insert log
-	  if mode == 1:
-	    writeLog(url, "[INFO] Check GPS Status", "GPS Status : "+getGpsStatus(gpsd.fix.mode))
-
+      if gpsd.fix.mode == 1:
+	gps_status = getGpsStatus(gpsd.fix.mode)
+        writeLog(url, "[INFO] Check GPS Status: "+str(gpsd.fix.mode), "GPS Status : "+ gps_status)
+      elif gpsd.fix.mode == 2 or gpsd.fix.mode == 3:
+        writeLog(url, "[INFO] Check GPS Status: ", "GPS Status : "+ gps_status)
+        pushGPS(url, gpsd.fix.latitude, gpsd.fix.longitude, gpsd.fix.altitude, "Normal", "Normal", gps_status)
       time.sleep(10) #set to whatever
 
   except (KeyboardInterrupt, SystemExit): #when you press ctrl+c
